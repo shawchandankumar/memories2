@@ -15,9 +15,9 @@ app.use('/posts',PostRoutes);
 app.post('/signup',signup);
 app.post('/login',login);
 
-const CONNECTION_URL = "mongodb://localhost:27017/fsadProject";
+const CONNECTION_URL = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 5000;
-mongoose.connect(CONNECTION_URL,{})
+await mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false })
 .then(()=> app.listen(PORT,()=>console.log('server running on ',PORT)))
 .catch((error)=>console.log(error.message));
 
