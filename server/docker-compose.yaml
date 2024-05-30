@@ -1,0 +1,29 @@
+version: "3.8"  # Updated version for more features and compatibility
+services:
+  memories-backend:
+    depends_on:
+      - mongodb
+    image: shawchandankumar20/memories-backend:v1
+    build: .
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/fsadProject
+    networks:
+      - my_network
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    restart: unless-stopped
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
